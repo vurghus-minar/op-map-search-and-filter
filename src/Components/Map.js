@@ -8,18 +8,18 @@ const MapDefault = () => {
     
     return (
         <FitnessCenterContext.Consumer>
-        {
-            context => (
+            {
+                context => (
 
-                <GoogleMap
-                defaultZoom={10}
-                defaultCenter={{ lat: context.state.mapDefaultPosition.latitude, lng: context.state.mapDefaultPosition.longitude }}
-                center={{ 
-                    lat: context.state.mapCenter?context.state.mapCenter.latitude:context.state.mapDefaultPosition.latitude,
-                    lng: context.state.mapCenter?context.state.mapCenter.longitude:context.state.mapDefaultPosition.longitude }}
-                >
-                    {context.state.showMarker?
-                        <Fragment>
+                    <GoogleMap
+                        defaultZoom={10}
+                        defaultCenter={{ lat: context.state.mapDefaultPosition.latitude, lng: context.state.mapDefaultPosition.longitude }}
+                        center={{ 
+                            lat: context.state.mapCenter?context.state.mapCenter.latitude:context.state.mapDefaultPosition.latitude,
+                            lng: context.state.mapCenter?context.state.mapCenter.longitude:context.state.mapDefaultPosition.longitude }}
+                    >
+                        {context.state.showMarker?
+                            <Fragment>
                                 <Marker
                                     key={context.state.marker.centre_id}
                                     position={{
@@ -42,14 +42,14 @@ const MapDefault = () => {
                                         <p className="fitness-center-facilities"></p>
                                     </Card>                            
                                 </InfoWindow>                        
-                        </Fragment>
-                    :''}
-                </GoogleMap>
-            )
-        }
+                            </Fragment>
+                            :''}
+                    </GoogleMap>
+                )
+            }
         </FitnessCenterContext.Consumer>
-    )
-}
+    );
+};
 
 const Map = withScriptjs(withGoogleMap(MapDefault));
 
