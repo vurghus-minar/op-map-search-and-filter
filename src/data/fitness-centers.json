@@ -1,0 +1,142 @@
+[
+    {
+        "centre_id": 1,
+        "name": "Albany Leisure Centre",
+        "latitude": 51.66781950882671,
+        "longitude": -0.04048939119343231,
+        "address": "505 Hertford Rd",
+        "address2": "Middlesex",
+        "postcode": "EN3 5XH",
+        "facilities": {
+            "hasPool": true,
+            "hasTennis": true,
+            "hasGym": false
+        }
+    },
+    {
+        "centre_id": 2,
+        "name": "Edmonton Leisure Centre",
+        "latitude": 51.624379696940224,
+        "longitude": -0.0602820846557961,
+        "address": "2 The Broadway",
+        "address2": "London",
+        "postcode": "N9 0TR",
+        "facilities": {
+            "hasPool": false,
+            "hasTennis": false,
+            "hasGym": true
+        }
+    },
+    {
+        "centre_id": 3,
+        "name": "Southbury Leisure Centre",
+        "latitude": 51.652331754243576,
+        "longitude": -0.062075753548924695,
+        "address": "192 Southbury Rd",
+        "address2": "Enfield",
+        "postcode": "EN1 1YP",
+        "facilities": {
+            "hasPool": true,
+            "hasTennis": false,
+            "hasGym": true
+        }
+    },
+    {
+        "centre_id": 4,
+        "name": "Southgate Leisure Centre",
+        "latitude": 51.63336076248302,
+        "longitude": -0.1273773869247634,
+        "address": "Winchmore Hill Road",
+        "address2": "London",
+        "postcode": "N14 6AD",
+        "facilities": {
+            "hasPool": true,
+            "hasTennis": false,
+            "hasGym": true
+        }
+    },
+    {
+        "centre_id": 5,
+        "name": "New River Sport & Fitness",
+        "latitude": 51.59973947563367,
+        "longitude": -0.10512129212099808,
+        "address": "White Hart Lane",
+        "address2": "Wood Green",
+        "postcode": "N22 5QW",
+        "facilities": {
+            "hasPool": false,
+            "hasTennis": true,
+            "hasGym": true
+        }
+    },
+    {
+        "centre_id": 6,
+        "name": "Arnos Pool",
+        "latitude": 51.61565008893164,
+        "longitude": -0.13001887598807116,
+        "address": "269 Bowes Road",
+        "address2": "London",
+        "postcode": "N11 1BD",
+        "facilities": {
+            "hasPool": true,
+            "hasTennis": true,
+            "hasGym": false
+        }
+    },
+    {
+        "centre_id": 7,
+        "name": "Bramley Bowls Hall ",
+        "latitude": 51.635792228519946,
+        "longitude": -0.13618905767214073,
+        "address": "Chase Side, Cockfosters ",
+        "address2": "London",
+        "postcode": "N14 5HL",
+        "facilities": {
+            "hasPool": true,
+            "hasTennis": false,
+            "hasGym": false
+        }
+    },
+    {
+        "centre_id": 8,
+        "name": "Park Road Pools & Fitness ",
+        "latitude": 51.58343145124146,
+        "longitude": -0.13012910123757138,
+        "address": "Park Road",
+        "address2": "London",
+        "postcode": "N8 8JN",
+        "facilities": {
+            "hasPool": false,
+            "hasTennis": false,
+            "hasGym": true
+        }
+    },
+    {
+        "centre_id": 9,
+        "name": "Tottenham Green Pools & Fitness",
+        "latitude": 51.58871907713343,
+        "longitude": -0.07415556259775258,
+        "address": "1 Philip Lane ",
+        "address2": "London",
+        "postcode": " N15 4JA",
+        "facilities": {
+            "hasPool": true,
+            "hasTennis": true,
+            "hasGym": true
+        }
+    },
+    {
+        "centre_id": 10,
+        "name": "Broadwater Farm Community Centre",
+        "latitude": 51.59570723978532,
+        "longitude": -0.08424683610667216,
+        "address": "Adams Road, Tottenham",
+        "address2": "London",
+        "postcode": " N17 6HE",
+        "facilities": {
+            "hasPool": true,
+            "hasTennis": true,
+            "hasGym": true
+        }
+    }
+]

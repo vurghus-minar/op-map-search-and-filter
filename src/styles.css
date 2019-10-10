@@ -1,0 +1,40 @@
+.logo{
+    color: #FFF;
+}
+
+.fitness-center{
+    cursor: pointer;
+}
+
+.fitness-center-name{
+    font-weight: 900;
+}
+
+.fitness-center-facilities{
+    font-size: 12px;
+}
+
+.fitness-center-filters-checkbox {
+    display: block;
+}
+
+.fitness-center-filters-checkbox + .fitness-center-filters-checkbox {
+    margin-left: 0px;
+}
+
+.fitness-center-marker{
+    cursor: default;
+}
+
+.gm-style-iw.gm-style-iw-c button.gm-ui-hover-effect{
+    display: none!important
+}
+
+.geolocation_info{
+    margin-top: 5px;
+    color: brown;
+}
+
+.geolocation_btn{
+    margin-top: 10px;
+}
