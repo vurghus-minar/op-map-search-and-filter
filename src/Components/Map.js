@@ -1,56 +1,47 @@
 import React, {Fragment} from 'react';
 import { Card } from 'antd';
-import {GoogleMap, withScriptjs, withGoogleMap, Marker, InfoWindow} from 'react-google-maps';
+import {GoogleMap, withGoogleMap, Marker, InfoWindow} from 'react-google-maps';
 
-import {FitnessCenterContext} from '../store/FitnessCenterContext';
-
-const MapDefault = () => {
-    
+// import {FitnessCenterContext} from '../store/FitnessCenterContext';
+import {FitnessCenterStore} from '../store/FitnessCenterContext';
+const MapDefault = (props) => {
+    const { state } = FitnessCenterStore();
     return (
-        <FitnessCenterContext.Consumer>
-            {
-                context => (
-
-                    <GoogleMap
-                        defaultZoom={10}
-                        defaultCenter={{ lat: context.state.mapDefaultPosition.latitude, lng: context.state.mapDefaultPosition.longitude }}
-                        center={{ 
-                            lat: context.state.mapCenter?context.state.mapCenter.latitude:context.state.mapDefaultPosition.latitude,
-                            lng: context.state.mapCenter?context.state.mapCenter.longitude:context.state.mapDefaultPosition.longitude }}
+        <GoogleMap
+            defaultZoom={state.mapZoomLevel}
+            zoom={state.mapZoomLevel}
+            defaultCenter={{ lat: state.mapDefaultPosition.latitude, lng: state.mapDefaultPosition.longitude }}
+            center={{ 
+                lat: state.mapCenter ? state.mapCenter.latitude : state.mapDefaultPosition.latitude,
+                lng: state.mapCenter ? state.mapCenter.longitude : state.mapDefaultPosition.longitude }}
+        >
+            {state.showMarker?
+                <Fragment>
+                    <Marker
+                        key={state.marker.centre_id}
+                        position={{
+                            lat: state.marker.latitude,
+                            lng: state.marker.longitude
+                        }}
+                    />
+                    <InfoWindow
+                        position={{
+                            lat: state.marker.latitude,
+                            lng: state.marker.longitude
+                        }}
                     >
-                        {context.state.showMarker?
-                            <Fragment>
-                                <Marker
-                                    key={context.state.marker.centre_id}
-                                    position={{
-                                        lat: context.state.marker.latitude,
-                                        lng: context.state.marker.longitude
-                                    }}
-                                />
-                                <InfoWindow
-                                    position={{
-                                        lat: context.state.marker.latitude,
-                                        lng: context.state.marker.longitude
-                                    }}
-                                    
-                                    className="bla"
-                                    
-                                >
-                                    <Card className="fitness-center fitness-center-marker" bordered={false}>
-                                        <p className="fitness-center-name">{context.state.marker.name}</p>
-                                        <p className="fitness-center-address">{context.state.marker.address}</p>
-                                        <p className="fitness-center-facilities"></p>
-                                    </Card>                            
-                                </InfoWindow>                        
-                            </Fragment>
-                            :''}
-                    </GoogleMap>
-                )
-            }
-        </FitnessCenterContext.Consumer>
+                        <Card className="fitness-center fitness-center-marker" bordered={false}>
+                            <p className="fitness-center-name">{state.marker.name}</p>
+                            <p className="fitness-center-address">{state.marker.address}</p>
+                            <p className="fitness-center-facilities"></p>
+                        </Card>                            
+                    </InfoWindow>                        
+                </Fragment>
+                :''}
+        </GoogleMap>
     );
 };
 
-const Map = withScriptjs(withGoogleMap(MapDefault));
+const Map = withGoogleMap(MapDefault);
 
 export default Map;

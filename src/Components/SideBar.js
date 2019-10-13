@@ -1,16 +1,17 @@
 import React, { useCallback } from 'react';
-import { Layout, Collapse, Input, Checkbox } from 'antd';
+import { Layout, Collapse, Checkbox } from 'antd';
 
 import { FitnessCenterStore} from '../store/FitnessCenterContext';
 
 import SearchResult from './SearchResult';
 import Location from './Location';
 
+import MapAutoCompleteInput from './MapAutoCompleteInput';
+
 const { Sider, Content } = Layout;
 const { Panel } = Collapse;
-const { Search } = Input;
 
-const SideMenu = () => {
+const SideBar = () => {
   
     const { state, dispatch } = FitnessCenterStore();
 
@@ -30,16 +31,13 @@ const SideMenu = () => {
             <Content style={{ padding: '0 24px' }}>
 
                 <h3>Search</h3>
-                <Search
-                    placeholder="input search text"
-                    onSearch={value => console.log(value)}
-                    style={{ width: 200 }}
-                />
+
+                <MapAutoCompleteInput />
 
                 <Location />
       
 
-                <Collapse accordion style={{margin: '20px auto'}}>
+                <Collapse defaultActiveKey={['1']} accordion style={{margin: '20px auto'}}>
                     <Panel header="Filters" key="1">
                         <p>Filters</p>
                         <Checkbox.Group
@@ -64,4 +62,4 @@ const SideMenu = () => {
   
 };
 
-export default SideMenu;
+export default SideBar;

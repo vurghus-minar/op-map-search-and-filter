@@ -6,6 +6,7 @@ import data from '../data/fitness-centers.json';
 const initialState = {
     fitnessCenters: data,
     showMarker: false,
+    mapZoomLevel: 10,
     mapDefaultPosition:{
         latitude: 51.5287352,
         longitude: -0.3817821
@@ -13,7 +14,8 @@ const initialState = {
     marker:{
         latitude: 51.5287352,
         longitude: -0.3817821
-    }
+    },
+    useIPLocator: false,
 };
 
 export const FitnessCenterContext = createContext(initialState);
@@ -41,7 +43,7 @@ const reducer = (state, action) => {
             filters
         };        
     }
-    case 'GET_GEOLOCATION':
+    case 'SET_GEOLOCATION':
         return {
             ...state, 
             mapCenter:{
@@ -49,9 +51,19 @@ const reducer = (state, action) => {
                 longitude: action.payload[1],
             }
         };
+    case 'SET_ADDRESS':
+        return {
+            ...state,
+            mapZoomLevel: 15, 
+            mapCenter:{
+                latitude: action.payload.lat,
+                longitude: action.payload.lng,
+            }
+        };
     case 'RESET_MAP':{
         let newState = Object.assign({}, state);
         delete newState["mapCenter"];
+        newState.mapZoomLevel = 10;
         return newState;        
     }
     case 'SHOW_ON_MAP':
