@@ -6,8 +6,6 @@ import PlacesAutocomplete, {
     getLatLng,
 } from 'react-places-autocomplete';
 
-import fitnessCenters from '../data/fitness-centers.json';
-
 import { FitnessCenterStore } from '../store/FitnessCenterContext';
  
 const MapAutoCompleteInput = () => {
@@ -35,23 +33,10 @@ const MapAutoCompleteInput = () => {
             .then(latLng => {
                 //console.log(google.maps.Map(document.getElementById('map')));
                 dispatch({ type: "SET_ADDRESS", payload: latLng });
+                dispatch({ type: "HIDE_DRAWER" });
             })
             .catch(error => console.error('Error', error));
     };
- 
-
-    // const findBounds = () => {
-    //     let fitnessCentersInBounds = [];
-    //     const currentBounds = gMap.getBounds();
-    //     fitnessCenters.forEach(function(item) {
-    //         const latlngLiteral = {lat:item.latitude, lng:item.longitude};
-    //         if(currentBounds.contains(latlngLiteral)){
-    //             fitnessCentersInBounds.push(item.centre_id);
-    //         }
-    //     });                
-    //     dispatch({ type: "FILTER_FITNESS_CENTERS_BY_LOCATION", payload: fitnessCentersInBounds });
-    // };
-
     return (
         <PlacesAutocomplete
             value={address.address}

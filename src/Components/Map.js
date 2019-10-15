@@ -16,10 +16,22 @@ const Map = compose(
         mapElement: <div style={{ height: `100%` }} />,
     }),
     withGoogleMap
-)((props) => {
+)(() => {
     const { state, dispatch } = FitnessCenterStore();
     let gMap;
     let fitnessCenterInBounds = [];
+    const radiusBound = () =>{ new google.maps.Circle({
+        strokeColor: '#FF0000',
+        strokeOpacity: 0.8,
+        strokeWeight: 2,
+        fillColor: '#FF0000',
+        fillOpacity: 0.35,
+        center: {
+            lat: state.mapCenter ? state.mapCenter.latitude : state.mapDefaultPosition.latitude,
+            lng: state.mapCenter ? state.mapCenter.longitude : state.mapDefaultPosition.longitude },
+        radius: 1000
+    });
+    };
     const filterFitnessCenter = () => {
         data.forEach(fc => {
             if(gMap.getBounds().contains({lat: fc.latitude, lng: fc.longitude})){
@@ -39,6 +51,7 @@ const Map = compose(
             onIdle={()=>{
                 filterFitnessCenter();
                 dispatch({ type: "FILTER_FITNESS_CENTERS_BY_LOCATION", payload: fitnessCenterInBounds });
+                radiusBound();
             }}
         >
             {state.showMarker?

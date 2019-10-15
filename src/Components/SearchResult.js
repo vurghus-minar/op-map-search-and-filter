@@ -20,25 +20,42 @@ function setFacilitiesLabel(facilities){
 
 
 const SearchResult = (props) => {
-    const { dispatch } = FitnessCenterStore();
-  
+    const { state, dispatch } = FitnessCenterStore();
+    const showOnMap = (fitnessCenter) => {
+        dispatch({ type: "SHOW_ON_MAP", payload: fitnessCenter });
+    };
     return (
         <Fragment>
-            {
-                props.searchResults.map(
-                    (fitnessCenter) => {
-                        return (
-                            <Card onClick={() => dispatch({ type: "SHOW_ON_MAP", payload: fitnessCenter })} className="fitness-center" key={fitnessCenter.centre_id} style={{ width: '100%', marginBottom: '10px' }}>
-                                <p className="fitness-center-name">{fitnessCenter.name}</p>
-                                <p className="fitness-center-address">{fitnessCenter.address}</p>
-                                <p className="fitness-center-facilities">{setFacilitiesLabel(fitnessCenter.facilities)}</p>
-                            </Card>
-                        );
-                    }
-                )          
-            }
-
-        </Fragment>  
+            <h3>Fitness Centres found: {props.searchResults.length}</h3>
+            <div style={{
+                overflow: 'auto',
+                height: '70vh',
+                width: '275px'
+            }}>
+                {
+                    props.searchResults.map(
+                        (fitnessCenter) => {
+                            return (
+                                <Card
+                                    onClick={()=>{
+                                        showOnMap(fitnessCenter);}
+                                    }
+                                    hoverable="true"
+                                    className={(state.activeCentreID === fitnessCenter.centre_id) ? 'fitness-center active':'fitness-center'}
+                                    key={fitnessCenter.centre_id}
+                                    style={{ width: '100%', marginBottom: '10px' }}
+                                >
+                                    <p className="fitness-center-name">{fitnessCenter.name}</p>
+                                    <p className="fitness-center-address">{fitnessCenter.address}</p>
+                                    <p className="fitness-center-facilities">{setFacilitiesLabel(fitnessCenter.facilities)}</p>
+                                </Card>
+                            );
+                        }
+                    )          
+                }
+            </div>  
+        </Fragment>
+        
     );
 };
 

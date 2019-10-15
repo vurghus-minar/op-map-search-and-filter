@@ -42,7 +42,7 @@ const Location = (props) => {
             <Button className="geolocation_btn" size="small" type="primary" icon="global" onClick={() => dispatch({ type: "SET_GEOLOCATION", payload: [props.coords.latitude,props.coords.longitude] })}>
                     Use My Location
             </Button>
-            <Button className="geolocation_btn" size="small" type="secondary" onClick={() => dispatch({ type: "RESET_MAP", payload: [props.coords.latitude,props.coords.longitude] })}>
+            <Button className="geolocation_btn" size="small" type="secondary" onClick={() => dispatch({ type: "RESET_MAP" })}>
                     Reset Map
             </Button>
         </div>

@@ -16,6 +16,7 @@ const initialState = {
         longitude: -0.3817821
     },
     useIPLocator: false,
+    showDrawer: false,
 };
 
 export const FitnessCenterContext = createContext(initialState);
@@ -75,7 +76,7 @@ const reducer = (state, action) => {
     case 'SET_ADDRESS':
         return {
             ...state,
-            mapZoomLevel: 15,
+            mapZoomLevel: 12,
             mapCenter:{
                 latitude: action.payload.lat,
                 longitude: action.payload.lng,
@@ -86,18 +87,34 @@ const reducer = (state, action) => {
         delete newState["mapCenter"];
         newState.fitnessCenters = data;
         newState.showMarker = false;
+        newState.showDrawer= false;
+        newState.mapZoomLevel = 10;
         return newState;
     }
     case 'SHOW_ON_MAP':
         return {
-            ...state, 
+            ...state,
+            mapZoomLevel: 12,
             marker: action.payload,
             mapCenter:{
                 latitude: action.payload.latitude,
                 longitude: action.payload.longitude,
             },
+            activeCentreID: action.payload.centre_id,
             showMarker: true
         };
+    case 'SHOW_DRAWER':{
+        return {
+            ...state,
+            showDrawer: true
+        };
+    }
+    case 'HIDE_DRAWER':{
+        return {
+            ...state,
+            showDrawer: false
+        };            
+    }
     default:
         return state;
     }

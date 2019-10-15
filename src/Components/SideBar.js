@@ -1,5 +1,5 @@
-import React, { useCallback } from 'react';
-import { Layout, Collapse, Checkbox } from 'antd';
+import React, { useCallback, Fragment } from 'react';
+import { Layout, Collapse, Checkbox, Drawer } from 'antd';
 
 import { FitnessCenterStore} from '../store/FitnessCenterContext';
 
@@ -15,27 +15,45 @@ const SideBar = () => {
   
     const { state, dispatch } = FitnessCenterStore();
 
+    const hideDrawer = () => {
+        dispatch({ type: "HIDE_DRAWER" });
+    };
+
     const filter = useCallback((checkedValues) => dispatch({ type: "FILTER_FITNESS_CENTERS", payload: checkedValues }), [
         dispatch
     ]);
   
 
     return (
-        <Sider
-            width={300}
-            style={{ 
-                overflow: 'auto',
-                maxHeight: '70vh',
-                background: '#fff' 
-            }}>
-            <Content style={{ padding: '0 24px' }}>
+        <Fragment>
+            <Sider
+                width={300}
+                style={{ 
+                    overflow: 'hidden',
+                    height: '75vh',
+                    background: '#fff' 
+                }}>
+                <Content style={{ padding: '0 24px' }}>
 
+                    <SearchResult searchResults={state.fitnessCenters}/>
+
+                </Content>
+        
+            </Sider>
+            <Drawer
+                title="Search &amp; Filter"
+                placement="right"
+                closable={true}
+                onClose={hideDrawer}
+                visible={state.showDrawer}
+                width="400px"
+            >
                 <h3>Search</h3>
 
                 <MapAutoCompleteInput />
 
                 <Location />
-      
+
 
                 <Collapse defaultActiveKey={['1']} accordion style={{margin: '20px auto'}}>
                     <Panel header="Filters" key="1">
@@ -50,14 +68,9 @@ const SideBar = () => {
                         </Checkbox.Group>
                     </Panel>
                 </Collapse>
+            </Drawer>
+        </Fragment>
 
-                <h3>Results</h3>
-
-                <SearchResult searchResults={state.fitnessCenters}/>
-
-            </Content>
-      
-        </Sider>
     );
   
 };
