@@ -6,31 +6,22 @@ import PlacesAutocomplete, {
     getLatLng,
 } from 'react-places-autocomplete';
 
+import fitnessCenters from '../data/fitness-centers.json';
+
 import { FitnessCenterStore } from '../store/FitnessCenterContext';
  
 const MapAutoCompleteInput = () => {
 
     const { state, dispatch } = FitnessCenterStore();
 
-    let latitude;
-    let longitude;
-
-    if(!state.mapCenter){
-        latitude =  state.mapDefaultPosition.latitude;
-        longitude = state.mapDefaultPosition.longitude;
-    } else {
-        latitude =  state.mapCenter.latitude;
-        longitude = state.mapCenter.longitude;
-    }
+    const latitude = state.mapCenter ? state.mapCenter.latitude : state.mapDefaultPosition.latitude;
+    const longitude = state.mapCenter ? state.mapCenter.longitude : state.mapDefaultPosition.longitude;
 
     const searchOptions = {
         location: new google.maps.LatLng(latitude, longitude),
         radius: 16093.4,
         country: 'uk',
-        bounds: new google.maps.LatLng(state.mapDefaultPosition.latitude,state.mapDefaultPosition.longitude)
     };
-
-
 
     const [address, setAddress] = useState({address: ''});
     const handleChange = address => {
@@ -38,15 +29,28 @@ const MapAutoCompleteInput = () => {
     };
  
     const handleSelect = address => {
+        setAddress({ address });
         geocodeByAddress(address)
             .then(results => getLatLng(results[0]))
             .then(latLng => {
-                console.log('Success', latLng);
+                //console.log(google.maps.Map(document.getElementById('map')));
                 dispatch({ type: "SET_ADDRESS", payload: latLng });
             })
             .catch(error => console.error('Error', error));
     };
  
+
+    // const findBounds = () => {
+    //     let fitnessCentersInBounds = [];
+    //     const currentBounds = gMap.getBounds();
+    //     fitnessCenters.forEach(function(item) {
+    //         const latlngLiteral = {lat:item.latitude, lng:item.longitude};
+    //         if(currentBounds.contains(latlngLiteral)){
+    //             fitnessCentersInBounds.push(item.centre_id);
+    //         }
+    //     });                
+    //     dispatch({ type: "FILTER_FITNESS_CENTERS_BY_LOCATION", payload: fitnessCentersInBounds });
+    // };
 
     return (
         <PlacesAutocomplete

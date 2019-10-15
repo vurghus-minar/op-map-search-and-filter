@@ -25,11 +25,12 @@ const reducer = (state, action) => {
     switch (action.type) {
     case 'FILTER_FITNESS_CENTERS':{
         let filters = {};
+
         action.payload.forEach(function(item){
             filters[item] = true;
         });
-
-        const fitnessCenters = data.filter(function(item) {
+        
+        const fitnessCenters = state.fitnessCenters.filter(function(item) {
             for (var key in filters) {
                 if (item.facilities[key] === undefined || item.facilities[key] !== filters[key])
                     return false;
@@ -40,8 +41,28 @@ const reducer = (state, action) => {
         return {
             ...state,
             fitnessCenters,
-            filters
+            filters,
         };        
+    }
+    case 'FILTER_FITNESS_CENTERS_BY_LOCATION':{
+        let fitnessCenters;
+        if(state.filters) {
+            let filters = state.filters;
+            fitnessCenters = action.payload.filter(function(item) {
+                for (var key in filters) {
+                    if (item.facilities[key] === undefined || item.facilities[key] !== filters[key])
+                        return false;
+                }
+                return true;
+            });
+        } else {
+            fitnessCenters = action.payload;
+        }
+
+        return {
+            ...state,
+            fitnessCenters
+        };
     }
     case 'SET_GEOLOCATION':
         return {
@@ -54,7 +75,7 @@ const reducer = (state, action) => {
     case 'SET_ADDRESS':
         return {
             ...state,
-            mapZoomLevel: 15, 
+            mapZoomLevel: 15,
             mapCenter:{
                 latitude: action.payload.lat,
                 longitude: action.payload.lng,
@@ -63,8 +84,9 @@ const reducer = (state, action) => {
     case 'RESET_MAP':{
         let newState = Object.assign({}, state);
         delete newState["mapCenter"];
-        newState.mapZoomLevel = 10;
-        return newState;        
+        newState.fitnessCenters = data;
+        newState.showMarker = false;
+        return newState;
     }
     case 'SHOW_ON_MAP':
         return {

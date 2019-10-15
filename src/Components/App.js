@@ -20,12 +20,7 @@ const App = () => {
                     <Layout style={{ padding: '24px 0', background: '#fff' }}>
                         <SideBar/>
                         <Content style={{ padding: '0 24px', minHeight: '300px', }}>
-                            <Map 
-                                googleMapURL={`https://maps.googleapis.com/maps/api/js?v=3.exp&libraries=geometry,drawing,places&key=${process.env.REACT_APP_GOOGLE_MAP_API_KEY}`}
-                                loadingElement={<div style={{ height: `100%` }} />}
-                                containerElement={<div style={{ height: `100%` }} />}
-                                mapElement={<div style={{ height: `100%` }} />}
-                            />
+                            <Map />
                             
                         </Content>
                     </Layout>

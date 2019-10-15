@@ -1,19 +1,45 @@
+/*global google*/
 import React, {Fragment} from 'react';
 import { Card } from 'antd';
 import {GoogleMap, withGoogleMap, Marker, InfoWindow} from 'react-google-maps';
 
-// import {FitnessCenterContext} from '../store/FitnessCenterContext';
+import { compose, withProps } from "recompose";
+
 import {FitnessCenterStore} from '../store/FitnessCenterContext';
-const MapDefault = (props) => {
-    const { state } = FitnessCenterStore();
+
+import data from '../data/fitness-centers.json';
+
+const Map = compose(
+    withProps({
+        loadingElement: <div style={{ height: `100%` }} />,
+        containerElement: <div style={{ height: `100%` }} />,
+        mapElement: <div style={{ height: `100%` }} />,
+    }),
+    withGoogleMap
+)((props) => {
+    const { state, dispatch } = FitnessCenterStore();
+    let gMap;
+    let fitnessCenterInBounds = [];
+    const filterFitnessCenter = () => {
+        data.forEach(fc => {
+            if(gMap.getBounds().contains({lat: fc.latitude, lng: fc.longitude})){
+                fitnessCenterInBounds.push(fc);
+            }
+        });
+    };
     return (
         <GoogleMap
+            ref={(map)=>{gMap = map;}}
             defaultZoom={state.mapZoomLevel}
             zoom={state.mapZoomLevel}
             defaultCenter={{ lat: state.mapDefaultPosition.latitude, lng: state.mapDefaultPosition.longitude }}
-            center={{ 
+            center={{
                 lat: state.mapCenter ? state.mapCenter.latitude : state.mapDefaultPosition.latitude,
                 lng: state.mapCenter ? state.mapCenter.longitude : state.mapDefaultPosition.longitude }}
+            onIdle={()=>{
+                filterFitnessCenter();
+                dispatch({ type: "FILTER_FITNESS_CENTERS_BY_LOCATION", payload: fitnessCenterInBounds });
+            }}
         >
             {state.showMarker?
                 <Fragment>
@@ -40,8 +66,6 @@ const MapDefault = (props) => {
                 :''}
         </GoogleMap>
     );
-};
-
-const Map = withGoogleMap(MapDefault);
+});
 
 export default Map;
